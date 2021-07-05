@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-	 'use strict';
+    'use strict';
 
     // timer
     function countTimer(deadline) {
@@ -13,17 +13,16 @@ window.addEventListener('DOMContentLoaded', () => {
                 timeRemaining = (dateStop - dateNow) / 1000,
                 seconds = Math.floor(timeRemaining % 60),
                 minutes = Math.floor((timeRemaining / 60) % 60),
-                hours =  Math.floor(timeRemaining / 60 / 60);
-            return { timeRemaining, hours, minutes, seconds };
+                hours = Math.floor(timeRemaining / 60 / 60);
+            return {
+                timeRemaining,
+                hours,
+                minutes,
+                seconds
+            };
         }
 
-        function getZero(event) {
-            if (String(event).length === 1) {
-                return '0' + event;
-            } else {
-                return String(event);
-            }
-        };
+        const getZero = num => num < 10 ? `0${num}` : num;
 
         function updateClock() {
             let timer = getTimeRemaining();
@@ -31,7 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
             timerMinutes.textContent = getZero(timer.minutes);
             timerSeconds.textContent = getZero(timer.seconds);
 
-            if(timer.timeRemaining > 0) {
+            if (timer.timeRemaining > 0) {
                 setTimeout(updateClock, 1000);
             }
             if (timer.timeRemaining < 0) {
@@ -45,4 +44,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     const thisInterval = setInterval(countTimer, 1000, '7 july 2021');
 });
-
