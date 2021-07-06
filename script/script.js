@@ -44,5 +44,22 @@ window.addEventListener('DOMContentLoaded', () => {
         updateClock();
     }
     const thisInterval = setInterval(countTimer, 1000, '7 july 2021');
+
+    //  Меню
+   function toggleMenu() {
+    const btnMenu = document.querySelector('.menu');
+    const menu = document.querySelector('menu');
+    const closeBtn = document.querySelector('.close-btn');
+    const menuItems = menu.querySelectorAll('ul>li');
+    const popupContent = document.querySelector('.popup-content');
+
+    function heandlerMenu() {
+        menu.classList.toggle('active-menu');
+    }
+    btnMenu.addEventListener('click', heandlerMenu);
+    closeBtn.addEventListener('click', heandlerMenu);
+    menuItems.forEach((elem) => elem.addEventListener('click', heandlerMenu))}
+
+    toggleMenu();
 });
 
