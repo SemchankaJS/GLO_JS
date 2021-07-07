@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         updateClock();
     }
-    const thisInterval = setInterval(countTimer, 1000, '7 july 2021');
+    const thisInterval = setInterval(countTimer, 1000, '15 july 2021');
 
     //  Меню
    function toggleMenu() {
@@ -61,5 +61,30 @@ window.addEventListener('DOMContentLoaded', () => {
     menuItems.forEach((elem) => elem.addEventListener('click', heandlerMenu))}
 
     toggleMenu();
+
+    // popup
+    const tooglePopUp = () => {
+        const popup = document.querySelector('.popup'),
+        popupBtn = document.querySelectorAll('.popup-btn'),
+        popupClose = document.querySelector('.popup-close');
+
+
+        popupBtn.forEach((elem) => {
+            elem.addEventListener('click', () => {
+                    popup.style.display = 'block';
+            });
+        });
+
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+        
+    };
+    tooglePopUp();  
+      
+
+
+
+
 });
 
