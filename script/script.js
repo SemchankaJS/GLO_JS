@@ -74,10 +74,11 @@ window.addEventListener('DOMContentLoaded', () => {
         let flyAnimate = () => {
           count++;
           if(count <= 0){
-            popupContent.style.transform = `translateX(${count  * 2 - 12}%)`;
-          } else {
+            popupContent.style.transform = `translateX(${count  * 2 - 10}%)`;
+          } 
+        else {
             cancelAnimationFrame(flyInterval);
-            count = 0;
+            count = -100;
             return;
           }
           flyInterval = requestAnimationFrame(flyAnimate);
