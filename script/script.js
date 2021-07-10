@@ -74,7 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
         let flyAnimate = () => {
           count++;
           if(count <= 0){
-            popupContent.style.transform = `translateX(${count * 2}%)`;
+            popupContent.style.transform = `translateX(${count  * 2 - 12}%)`;
           } else {
             cancelAnimationFrame(flyInterval);
             count = 0;
@@ -86,30 +86,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
+                if (document.body.clientWidth < 768 ) {
+                    popup.style.display = 'block';
+                    
+                } else {
                     popup.style.display = 'block';
                     flyInterval = requestAnimationFrame(flyAnimate);
-
-                       // popupAnimationInLibrary();
-                    //    if (document.body.clientWidth > 786) {
-                    //     popupLibrary.counter = popupLibrary.start;
-                    //                 popupAnimation();
-                    //         } 
-                    // });
-
+                }
             });
         });
 
         popupClose.addEventListener('click', () => {
             popup.style.display = 'none';
+            
         });
-        
-
         
 
     };
     tooglePopUp();  
-
-
 
 
 
