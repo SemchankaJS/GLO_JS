@@ -67,11 +67,35 @@ window.addEventListener('DOMContentLoaded', () => {
         const popup = document.querySelector('.popup'),
         popupBtn = document.querySelectorAll('.popup-btn'),
         popupClose = document.querySelector('.popup-close');
+        const popupContent = document.querySelector('.popup-content');    
 
+        let count = -100;
+        let flyInterval;
+        let flyAnimate = () => {
+          count++;
+          if(count <= 0){
+            popupContent.style.transform = `translateX(${count * 2}%)`;
+          } else {
+            cancelAnimationFrame(flyInterval);
+            count = 0;
+            return;
+          }
+          flyInterval = requestAnimationFrame(flyAnimate);
+          
+        };
 
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
                     popup.style.display = 'block';
+                    flyInterval = requestAnimationFrame(flyAnimate);
+
+                       // popupAnimationInLibrary();
+                    //    if (document.body.clientWidth > 786) {
+                    //     popupLibrary.counter = popupLibrary.start;
+                    //                 popupAnimation();
+                    //         } 
+                    // });
+
             });
         });
 
@@ -79,9 +103,12 @@ window.addEventListener('DOMContentLoaded', () => {
             popup.style.display = 'none';
         });
         
+
+        
+
     };
     tooglePopUp();  
-      
+
 
 
 
