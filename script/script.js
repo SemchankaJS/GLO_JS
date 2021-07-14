@@ -56,9 +56,28 @@ window.addEventListener('DOMContentLoaded', () => {
    function heandlerMenu() {
        menu.classList.toggle('active-menu');
    }
+
+  
    btnMenu.addEventListener('click', heandlerMenu);
+
+    document.addEventListener('click', (event) => {
+        let target = event.target;
+
+        if(target.classList.conteins('.close-btn')) {
+                menu.style.display = 'none';
+        } else {
+                target = target.closest('.active-menu');
+            if(!target) {
+                menu.style.display = 'none';
+            }
+        }
+        
+    });
+    
    closeBtn.addEventListener('click', heandlerMenu);
    menuItems.forEach((elem) => elem.addEventListener('click', heandlerMenu))}
+
+  
 
    toggleMenu();
 
