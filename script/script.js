@@ -47,12 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
    //  Меню
     function toggleMenu() {
-        // const btnMenu = document.querySelector('.menu');
+        
         const menu = document.querySelector('menu'),
             documentAll = document.querySelector('html');
-        // const closeBtn = document.querySelector('.close-btn');
-        // const menuItems = menu.querySelectorAll('ul>li');
-        // const popupContent = document.querySelector('.popup-content');
 
         const heandlerMenu = () => {
             menu.classList.toggle('active-menu');
@@ -60,7 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         documentAll.addEventListener('click', (event) => {
             let target = event.target;
-            target = target.closest('.col-md-1');
+            target = target.closest('.menu');
             if(target) {
                 heandlerMenu();  
             } else {
