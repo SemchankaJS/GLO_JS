@@ -46,40 +46,33 @@ window.addEventListener('DOMContentLoaded', () => {
    const thisInterval = setInterval(countTimer, 1000, '15 july 2021');
 
    //  Меню
-  function toggleMenu() {
-   const btnMenu = document.querySelector('.menu');
-   const menu = document.querySelector('menu');
-   const closeBtn = document.querySelector('.close-btn');
-   const menuItems = menu.querySelectorAll('ul>li');
-   const popupContent = document.querySelector('.popup-content');
+    function toggleMenu() {
+        // const btnMenu = document.querySelector('.menu');
+        const menu = document.querySelector('menu'),
+            documentAll = document.querySelector('html');
+        // const closeBtn = document.querySelector('.close-btn');
+        // const menuItems = menu.querySelectorAll('ul>li');
+        // const popupContent = document.querySelector('.popup-content');
 
-   function heandlerMenu() {
-       menu.classList.toggle('active-menu');
-   }
+        const heandlerMenu = () => {
+            menu.classList.toggle('active-menu');
+        };
 
-  
-   btnMenu.addEventListener('click', heandlerMenu);
-
-    document.addEventListener('click', (event) => {
-        let target = event.target;
-
-        if(target.classList.conteins('.close-btn')) {
-                menu.style.display = 'none';
-        } else {
-                target = target.closest('.active-menu');
-            if(!target) {
-                menu.style.display = 'none';
+        documentAll.addEventListener('click', (event) => {
+            let target = event.target;
+            target = target.closest('.col-md-1');
+            if(target) {
+                heandlerMenu();  
+            } else {
+                target = event.target;  
             }
-        }
-        
-    });
-    
-   closeBtn.addEventListener('click', heandlerMenu);
-   menuItems.forEach((elem) => elem.addEventListener('click', heandlerMenu))}
-
-  
-
-   toggleMenu();
+            target = target.closest('menu');
+            if(target) {
+            heandlerMenu();
+            }
+        });
+    };  
+    toggleMenu();
 
    // popup
    const tooglePopUp = () => {
