@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
        }
        updateClock();
    }
-   const thisInterval = setInterval(countTimer, 1000, '15 july 2021');
+   const thisInterval = setInterval(countTimer, 1000, '29 july 2021');
 
    //  Меню
     function toggleMenu() {
@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
        let flyAnimate = () => {
          count++;
          if(count <= 0){
-           popupContent.style.transform = `translateX(${count  * 2 - 10}%)`;
+           popupContent.style.transform = `translateX(${count  * 4 - 10}%)`;
          } 
        else {
            cancelAnimationFrame(flyInterval);
@@ -245,6 +245,23 @@ window.addEventListener('DOMContentLoaded', () => {
         startSlide(1900);
 
     };
+    slider();
+
+    // Добавление точек на слайде
+    const addDots = () => {
+        const portfolioItem = document.querySelectorAll('.portfolio-item'),
+            portfolioDots = document.querySelector('.portfolio-dots');
+        
+        portfolioItem.forEach(() => {
+            const dot = document.createElement('li');
+            dot.classList.add('dot');
+            portfolioDots.appendChild(dot)
+        });
+
+        portfolioDots.children[0].classList.add('dot-active');
+    }
+    addDots()
+
     slider();
 
 
