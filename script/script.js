@@ -264,5 +264,129 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slider();
 
+    // Картинки
+
+    const changingAttributes = () => {
+        const commandShell = document.querySelector('#command .row');
+
+        const toggleImage = (event) => {
+            if (event.target.classList.contains('command__photo')) {
+                const lastImage = event.target.src;
+
+				event.target.src = event.target.dataset.img;
+				event.target.dataset.img = lastImage;
+            }
+        }
+        
+        commandShell.addEventListener('mouseover', toggleImage);
+        commandShell.addEventListener('mouseout', toggleImage);       
+    }
+    changingAttributes();
+
+
+    // Валидация
+
+    function formValidation() {
+        const calculator = document.querySelector('.calc-block');
+        const footerFormInput = document.querySelector('.footer-form-input');
+        const mainForm = document.querySelector('.main-form');
+        const userForm = document.querySelector('#form3');
+
+        userForm.addEventListener('input', (event) => {
+            if (event.target.type === 'text') {
+                event.target.value = event.target.value.replace(/[^а-яА-Я\s+\- ]/ig, '');
+            }
+        });
+
+        userForm.addEventListener('input', (event) => {
+            if (event.target.type === 'email') {
+                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
+            }
+        });
+
+        userForm.addEventListener('input', (event) => {
+            if (event.target.type === 'tel') {
+                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
+            }
+        });
+
+        mainForm.addEventListener('input', (event) => {
+            if (event.target.type === 'text') {
+                event.target.value = event.target.value.replace(/[^а-яА-Я\- ]/ig, '');
+            }
+        });
+
+        mainForm.addEventListener('input', (event) => {
+            if (event.target.type === 'email') {
+                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
+            }
+        });
+
+        mainForm.addEventListener('input', (event) => {
+            if (event.target.type === 'tel') {
+                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
+            }
+        });
+
+        calculator.addEventListener('input', (event) => {
+            if (event.target.type === 'text') {
+                event.target.value = event.target.value.replace(/\s+/g, '');
+                event.target.value = event.target.value.replace(/\D/g, '');
+            }
+        });
+
+        footerFormInput.addEventListener('input', (event) => {
+            if (event.target.type === 'text' || event.target.classList === 'mess') {
+                event.target.value = event.target.value.replace(/[^а-яА-Я\s+\- ]/ig, '');
+            }
+        });
+
+        footerFormInput.addEventListener('input', (event) => {
+            if (event.target.type === 'email') {
+                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
+            }
+        });
+
+        footerFormInput.addEventListener('input', (event) => {
+            if (event.target.type === 'tel') {
+                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
+            }
+        });
+
+        function bringingToTheRequiredForm() {
+            const form1Name = document.getElementById('form1-name');
+            const form1Email = document.getElementById('form1-email');
+            const form1Phone = document.getElementById('form1-phone');
+            const form2Name = document.getElementById('form2-name');
+            const form2Email = document.getElementById('form2-email');
+            const form2Phone = document.getElementById('form2-phone');
+            const form2Message = document.getElementById('form2-message');
+            const form3Name = document.getElementById('form3-name');
+            const form3Phone = document.getElementById('form3-phone');
+            const form3Email = document.getElementById('form3-email');
+
+            let arrForm = [form2Name, form2Phone, form2Message, form1Name, form1Phone, form3Phone, form3Name];
+            arrForm.forEach((item) => {
+                item.addEventListener('blur', (event) => {
+                    if (event.target.type === 'text') {
+                        let newStr;
+                        function firstLiterals(str) {
+                            if (!str) return str;
+                            return str[0].toUpperCase() + str.slice(1);
+                        }
+                        newStr = firstLiterals(event.target.value);
+                        event.target.value = newStr;
+                        event.target.value = event.target.value.replace(/^[a-zA-Z]$/gi, '');
+                    }
+                    event.target.value = event.target.value.trim();
+                    event.target.value = event.target.value.replace(/\s+/g, ' ');
+                    event.target.value = event.target.value.replace(/-+/g, "-");
+                });
+            });
+        }
+        bringingToTheRequiredForm();
+
+    }
+    formValidation();
 
 });
