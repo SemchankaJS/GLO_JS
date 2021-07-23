@@ -158,20 +158,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // slider
 
-    const slider = () => {
+    const slider = (time, booling) => {
         const slide = document.querySelectorAll('.portfolio-item'),
-            btn = document.querySelectorAll('.portfolio-btn'),
-            dot = document.querySelectorAll('.dot'),
-            slider = document.querySelector('.portfolio-content');
+        slider = document.querySelector('.portfolio-content'),
+        dotAdd = document.querySelector('.portfolio-dots');
 
         let currentSlide = 0,
             interval;
+
+        for (let i = 0; i < slide.length; i++) {
+            const dots = document.createElement('li');
+            dots.className = 'dot';
+            dotAdd.appendChild(dots);
+        }
+
+        const dot = document.querySelectorAll('.dot');
+            dot[0].classList.add('dot-active');
 
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
 
-        const nextSlide =  (elem, index, strClass) => {
+        const nextSlide = (elem, index, strClass) => {
             elem[index].classList.add(strClass);
         };
 
@@ -179,15 +187,16 @@ window.addEventListener('DOMContentLoaded', () => {
             prevSlide(slide, currentSlide, 'portfolio-item-active');
             prevSlide(dot, currentSlide, 'dot-active');
             currentSlide++;
-            if(currentSlide >= slide.length) {
+            if(currentSlide >= slide.length){
                 currentSlide = 0;
             }
             nextSlide(slide, currentSlide, 'portfolio-item-active');
             nextSlide(dot, currentSlide, 'dot-active');
         };
-
-        const startSlide = (time = 3000) => {
-            interval = setInterval(autoPlaySlide, time);
+        const startSlide = () => {
+            if(booling){
+                interval = setInterval(autoPlaySlide, time);
+            }
         };
 
         const stopSlide = () => {
@@ -196,9 +205,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         slider.addEventListener('click', (event) => {
             event.preventDefault();
-            let target = event.target;
+            const target = event.target;
 
-            if (!target.matches('.portfolio-btn, .dot')) {
+            if(!target.matches('.portfolio-btn, .dot')) {
                 return;
             }
 
@@ -207,62 +216,46 @@ window.addEventListener('DOMContentLoaded', () => {
 
             if(target.matches('#arrow-right')) {
                 currentSlide++;
-            } else if (target.matches('#arrow-left')) {
-                 currentSlide--;
-            } else if (target.matches('.dot')) {
+            } else if(target.matches('#arrow-left')) {
+                currentSlide--;
+            } else if(target.matches('.dot')) {
                 dot.forEach((elem, index) => {
-                    if (elem === target) {
+                    if(elem === target) {
                         currentSlide = index;
                     }
                 });
             }
-
-            if (currentSlide >= slide.length) {
+            if(currentSlide >= slide.length) {
                 currentSlide = 0;
             }
-            if(currentSlide < 0 ) {
-                currentSlide = slide.length -1;
+            if(currentSlide < 0) {
+                currentSlide = slide.length - 1;
             }
+
             nextSlide(slide, currentSlide, 'portfolio-item-active');
             nextSlide(dot, currentSlide, 'dot-active');
 
         });
+            
+            slider.addEventListener('mouseover', (event) => {
+                if(event.target.matches('.portfolio-btn') || 
+                event.target.matches('.dot')) {
+                    stopSlide();
+                }
+            });
 
-        slider.addEventListener('mouseover', (event) => {
-             if(event.target.matches('.portfolio-btn') || 
-            event.target.matches('.dot')){
-                stopSlide();
-            }
-        });
+            slider.addEventListener('mouseout', (event) => {
+                if(event.target.matches('.portfolio-btn') || 
+                    event.target.matches('.dot')) {
+                        startSlide();
+                }
+            });
 
-        slider.addEventListener('mouseout', (event) => {
-            if(event.target.matches('.portfolio-btn') || 
-            event.target.matches('.dot')){
-                startSlide();
-            }
-        });
-
-        startSlide(1900);
-
+        startSlide();
     };
-    slider();
+    slider(1900, true);
 
-    // Добавление точек на слайде
-    const addDots = () => {
-        const portfolioItem = document.querySelectorAll('.portfolio-item'),
-            portfolioDots = document.querySelector('.portfolio-dots');
-        
-        portfolioItem.forEach(() => {
-            const dot = document.createElement('li');
-            dot.classList.add('dot');
-            portfolioDots.appendChild(dot)
-        });
-
-        portfolioDots.children[0].classList.add('dot-active');
-    }
-    addDots()
-
-    slider();
+   
 
     // Картинки
 
@@ -286,107 +279,43 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Валидация
 
-    function formValidation() {
-        const calculator = document.querySelector('.calc-block');
-        const footerFormInput = document.querySelector('.footer-form-input');
-        const mainForm = document.querySelector('.main-form');
-        const userForm = document.querySelector('#form3');
-
-        userForm.addEventListener('input', (event) => {
-            if (event.target.type === 'text') {
-                event.target.value = event.target.value.replace(/[^а-яА-Я\s+\- ]/ig, '');
-            }
-        });
-
-        userForm.addEventListener('input', (event) => {
-            if (event.target.type === 'email') {
-                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
-            }
-        });
-
-        userForm.addEventListener('input', (event) => {
-            if (event.target.type === 'tel') {
-                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
-            }
-        });
-
-        mainForm.addEventListener('input', (event) => {
-            if (event.target.type === 'text') {
-                event.target.value = event.target.value.replace(/[^а-яА-Я\- ]/ig, '');
-            }
-        });
-
-        mainForm.addEventListener('input', (event) => {
-            if (event.target.type === 'email') {
-                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
-            }
-        });
-
-        mainForm.addEventListener('input', (event) => {
-            if (event.target.type === 'tel') {
-                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
-            }
-        });
-
-        calculator.addEventListener('input', (event) => {
-            if (event.target.type === 'text') {
-                event.target.value = event.target.value.replace(/\s+/g, '');
-                event.target.value = event.target.value.replace(/\D/g, '');
-            }
-        });
-
-        footerFormInput.addEventListener('input', (event) => {
-            if (event.target.type === 'text' || event.target.classList === 'mess') {
-                event.target.value = event.target.value.replace(/[^а-яА-Я\s+\- ]/ig, '');
-            }
-        });
-
-        footerFormInput.addEventListener('input', (event) => {
-            if (event.target.type === 'email') {
-                event.target.value = event.target.value.replace(/[^[a-zA-Z+^@-_'~*!]/ig, '');
-            }
-        });
-
-        footerFormInput.addEventListener('input', (event) => {
-            if (event.target.type === 'tel') {
-                event.target.value = event.target.value.replace(/[^[0-9()-]/ig, '');
-            }
-        });
-
-        function bringingToTheRequiredForm() {
-            const form1Name = document.getElementById('form1-name');
-            const form1Email = document.getElementById('form1-email');
-            const form1Phone = document.getElementById('form1-phone');
-            const form2Name = document.getElementById('form2-name');
-            const form2Email = document.getElementById('form2-email');
-            const form2Phone = document.getElementById('form2-phone');
-            const form2Message = document.getElementById('form2-message');
-            const form3Name = document.getElementById('form3-name');
-            const form3Phone = document.getElementById('form3-phone');
-            const form3Email = document.getElementById('form3-email');
-
-            let arrForm = [form2Name, form2Phone, form2Message, form1Name, form1Phone, form3Phone, form3Name];
-            arrForm.forEach((item) => {
-                item.addEventListener('blur', (event) => {
-                    if (event.target.type === 'text') {
-                        let newStr;
-                        function firstLiterals(str) {
-                            if (!str) return str;
-                            return str[0].toUpperCase() + str.slice(1);
-                        }
-                        newStr = firstLiterals(event.target.value);
-                        event.target.value = newStr;
-                        event.target.value = event.target.value.replace(/^[a-zA-Z]$/gi, '');
-                    }
-                    event.target.value = event.target.value.trim();
-                    event.target.value = event.target.value.replace(/\s+/g, ' ');
-                    event.target.value = event.target.value.replace(/-+/g, "-");
-                });
+    const formValidation = () => {
+        const calcBlock = document.querySelector('.calc-block');
+            calcBlock.addEventListener('input', (e) => {
+                if(e.target.closest('.calc-square, .calc-count, .calc-day')) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                }
             });
-        }
-        bringingToTheRequiredForm();
 
-    }
+        document.addEventListener('input', (e) => {
+            const target = event.target;
+                if(target.closest('#form1-name, #form2-name, #form2-message')){
+                    target.value = target.value.replace(/[^а-яё\-\s]/gi,'');
+                }
+                if(e.target.closest('#form1-email, #form2-email')){
+                    target.value = target.value.replace(/[а-яё0-9+^$\][}{)(?/]/gi, '');
+                }
+                if(e.target.closest('#form1-phone, #form2-phone')){
+                    target.value = target.value.replace(/[^0-9\-)()]/gi, '');
+                }
+        });
+
+        const inputForm = document.querySelectorAll('input'),
+            nameForm1 = document.getElementById('form1-name'),
+            nameForm2 = document.getElementById('form2-name');
+
+        inputForm.forEach((elem) => {
+            elem.addEventListener('blur', () => {
+                elem.value = elem.value.replace(/\s+/g, ' ')
+                                        .replace(/\-+/g, '-')
+                                        .replace(/^\-*\s*\-*|\-*\s*\-*$/g, '')
+                                        .replace(/^\s*\-*\s*|\s*\-*\s*$/g, '').trim();
+                nameForm1.value = nameForm1.value.replace(/([а-яё])([а-яё]+)/gi, (match, val1, val2) => val1.toUpperCase() + val2);
+                nameForm2.value = nameForm2.value.replace(/([а-яё])([а-яё]+)/gi, (match, val1, val2) => val1.toUpperCase() + val2);
+            });
+        });
+    
+    };
     formValidation();
 
 });
