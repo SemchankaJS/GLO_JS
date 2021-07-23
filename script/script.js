@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // slider
 
-    const slider = (time, booling) => {
+    const slider = (time = 1900, booling = true) => {
         const slide = document.querySelectorAll('.portfolio-item'),
         slider = document.querySelector('.portfolio-content'),
         dotAdd = document.querySelector('.portfolio-dots');
@@ -253,7 +253,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         startSlide();
     };
-    slider(1900, true);
+    slider();
 
    
 
