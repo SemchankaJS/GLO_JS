@@ -360,4 +360,59 @@ window.addEventListener('DOMContentLoaded', () => {
     };
     calc();
 
+     // send-ajax-form
+  const sendForm = () => {
+    const errorMessage = 'Что-то пошло не так...',
+          loadMessage = 'Загрузка...',
+          successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+    const input = document.querySelectorAll('input');
+    
+    const statusMessage = document.createElement('div');
+    statusMessage.style.csstext = 'font-size: 2rem;';
+    statusMessage.style.color = 'white';
+
+    document.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let target = event.target;
+      target.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+      const formData = new FormData(target);
+      let body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
+      });
+      postData(body, 
+        () => {
+          statusMessage.textContent = successMessage;
+        }, 
+        (error) => {
+          statusMessage.textContent = errorMessage;
+          console.error(error);
+        }, target
+        );
+      input.forEach((item) => {
+        item.value = '';
+      });
+    });
+    
+    const postData = (body, outputData, errorData, target) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if(request.readyState !== 4){
+          return;
+        }
+        if(request.status === 200 && target.tagName === 'FORM') {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      });
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.send(JSON.stringify(body));
+    };
+  };
+  sendForm();
+
 });
