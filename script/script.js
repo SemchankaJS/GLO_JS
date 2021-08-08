@@ -363,9 +363,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // Запросы на сервер (Ajax)
 
     const sendForm = () => {
-    const errorMessage = '���-�� ����� �� ���...',
-          loadMessage = '��������...',
-          successMessage = '�������! �� ����� � ���� ��������!';
+    const errorMessage = 'Что-то пошло не так...',
+          loadMessage = 'Загрузка...',
+          successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
     const input = document.querySelectorAll('input'),
           statusMessage = document.createElement('div');
