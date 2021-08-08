@@ -36,3 +36,6 @@ calc();
 
 // Запросы на сервер (Ajax)
 sendForm();
+
+// маска для поля телефона
+maskPhone('#form1-phone, #form2-phone, #form3-phone');
