@@ -9,6 +9,7 @@ import changingAttributes from './modules/changingAttributes';
 import formValidation from './modules/formValidation';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
+import maskPhone from './modules/maskPhone';
 
 // timer
 countTimer('1 december 2022');
