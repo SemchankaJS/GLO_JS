@@ -15,7 +15,8 @@ const formValidation = () => {
                 target.value = target.value.replace(/[а-яё0-9+^$\][}{)(?/]/gi, '');
             }
             if(e.target.closest('#form1-phone, #form2-phone')){
-                target.value = target.value.replace(/[^0-9\-)()]/gi, '');
+                target.value = target.value.replace(/\+?[^0-9]\d[12]/gi, '');
+                target.value = target.value.replace(/\+?[78]([-()]*\d)[11]/gi, '');
             }
     });
 
