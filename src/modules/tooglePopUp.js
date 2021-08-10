@@ -9,7 +9,7 @@ const tooglePopUp = () => {
     let flyAnimate = () => {
       count++;
       if(count <= 0){
-        popupContent.style.transform = `translateX(${count  * 4 - 10}%)`;
+        popupContent.style.transform = `translateX(${count  * 12 - 10}%)`;
       } 
     else {
         cancelAnimationFrame(flyInterval);
